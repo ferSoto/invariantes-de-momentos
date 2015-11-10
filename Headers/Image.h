@@ -29,7 +29,9 @@ public:
 
 	//Apply traslation to the image.
 	void traslateImage(ui alpha, ui betha);
-	
+		//Function to get mass center of image.
+	void getMC();
+
 private:
 	vvi matrix;
 	ui width;
@@ -39,8 +41,6 @@ private:
 
 	//Change the size of the image matrix
 	vvi newMatrix(ui x, ui y);
-	//Function to get mass center of image.
-	void getCM();
 	//Function to create image matrix.
 	void createMatrix();
 };
