@@ -4,6 +4,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <ctime>
 #include <iostream>
 #include "Headers/Image.h"
 #include "Headers/Moments.h"
@@ -38,10 +39,12 @@ int main(int argc, char const *argv[])
 	/**
 	* To use this program easily, redirect the input from text files.
 	*/
+	srand(time(NULL));
 	int option;
 	cin>>option;
 	switch(option){
 		case 1:
+
 			ui heigh, width;
 			//reading image dimensions.
 			cin>>heigh>>width;
@@ -53,9 +56,34 @@ int main(int argc, char const *argv[])
 					cin>>temp_pixel;
 					my_image.setPixel(i, j, temp_pixel);
 				}
-			}
+			}//cout<<"hola";
 			//Getting mass center
 			my_image.getMC();
+			cout<<"Xmc = "<<my_image.getXmc();
+			cout<<"\nYmc = "<<my_image.getYmc();
+			cout<<"\n\nCentral moments (original image): \n\n";
+			for (int i = 0; i < 3; ++i){
+				for (int j = 0; j < 3; ++j){
+					cout<<"p = "<<i;
+					cout<<" q = "<<j<<endl;
+					cout<<"M = "<<Moments::centralMoment(my_image, i, j)<<"\n\n";
+				}
+			}
+			cout<<"/////////////////////////////////////////////////////\n\n";
+			//We're traslating the image
+			my_image.traslateImage(1+rand()%200, 1+rand()%200);
+			//Inside Image::traslateImage all its properties are updated.
+			//Printing properties of our new image.
+			cout<<"New Mass center:\nXmc = "<<my_image.getXmc();
+			cout<<"\nYmc = "<<my_image.getYmc();
+			cout<<"\n\nCentral moments (traslated image): \n";
+			for (int i = 0; i < 3; ++i){
+				for (int j = 0; j < 3; ++j){
+					cout<<"p = "<<i;
+					cout<<" q = "<<j<<endl;
+					cout<<"M = "<<Moments::centralMoment(my_image, i, j)<<"\n\n";
+				}
+			}
 		break;
 		/*case 2:
 			//Cool code stuffs
