@@ -10,6 +10,8 @@
 
 using namespace std;
 
+typedef unsigned int ui;
+
 int main(int argc, char const *argv[])
 {
 	/**
@@ -40,9 +42,22 @@ int main(int argc, char const *argv[])
 	cin>>option;
 	switch(option){
 		case 1:
-			//Cool code stuffs
+			ui heigh, width;
+			//reading image dimensions.
+			cin>>heigh>>width;
+			Image my_image(heigh, width);
+			//Reading image pixels.
+			for (ui i = 0; i < heigh; ++i){
+				for (ui j = 0; j < width; ++j){
+					int temp_pixel;
+					cin>>temp_pixel;
+					my_image.setPixel(i, j, temp_pixel);
+				}
+			}
+			//Getting mass center
+			my_image.getMC();
 		break;
-		case 2:
+		/*case 2:
 			//Cool code stuffs
 		break;
 		case 3:
@@ -53,7 +68,7 @@ int main(int argc, char const *argv[])
 		break;
 		default:
 			//Not so awesome cool code
-		break;
+		break;*/
 	}
 	return 0;
 }
