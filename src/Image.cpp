@@ -40,7 +40,7 @@ void Image::createMatrix(){
 }
 
 //Get the Mass Center of the image.
-void Image::getCM(){
+void Image::getMC(){
 	unsigned int xs = 0,
 		 		 ys = 0,
 		 		 ones = 0;
@@ -87,5 +87,5 @@ void Image::traslateImage(ui alpha, ui beta){
 	//Updating all the other properties of the image.
 	this->heigh += alpha;
 	this->width += beta;
-	getCM();
+	getMC();
 }
