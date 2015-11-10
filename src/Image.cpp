@@ -4,6 +4,9 @@
 
 #include "../Headers/Image.h"
 #include <vector>
+#include <iostream>
+#include <cstring>
+#include <iostream>
 
 Image::Image(ui heigh, ui width){
 	this->heigh = heigh;
@@ -21,7 +24,7 @@ unsigned int Image::getYmc(){ return this->ymc; }
 
 //Setter
 void Image::setPixel(ui x, ui y, int value){
-	this->matrix[x][y] = value;
+	this->matrix.at(x).at(y) = value;
 }
 
 ////////////////////////////Functions///////////////////////////////
@@ -33,10 +36,10 @@ Image::operator ()(ui i, ui j){
 
 //Creates the matrix that contains the image.
 void Image::createMatrix(){
-	matrix.resize(this->heigh);
-	for(auto column : matrix)
-		for(ui i = 0; i < this->heigh; i++)
-			column.push_back(0);
+	this->matrix.resize(this->heigh);
+	for (unsigned int i = 0; i < this->heigh; ++i){
+		this->matrix.at(i).resize(this->width);
+	}
 }
 
 //Get the Mass Center of the image.
@@ -53,8 +56,8 @@ void Image::getMC(){
 			}
 		}
 	}
-	this->xcm = (unsigned int)(xs/ones);
-	this->ycm = (unsigned int)(ys/ones);
+	this->xmc = (unsigned int)(xs/ones);
+	this->ymc = (unsigned int)(ys/ones);
 }
 
 /**
@@ -63,8 +66,10 @@ void Image::getMC(){
 typedef std::vector<std::vector<int> > vvi;
 vvi Image::newMatrix(ui x, ui y){
 	vvi new_matrix;
-	for(auto i : this->matrix)
-		i.resize(this->width+y);
+	new_matrix.resize(this->heigh+x);
+	for (unsigned int i = 0; i < this->heigh+x; ++i){
+		new_matrix.at(i).resize(this->width+y);
+	}
 	return new_matrix;
 }
 
@@ -74,11 +79,11 @@ vvi Image::newMatrix(ui x, ui y){
 void Image::traslateImage(ui alpha, ui beta){
 	vvi temp_matrix;
 	//Creating a new image matrix to traslate the object in this->matrix.
-	temp_matrix = newMatrix(this->heigh+alpha, this->width);
+	temp_matrix = newMatrix(alpha, beta);
 	//Copying this->matrix traslated to temp_matrix.
 	for(unsigned int i = 0; i < this->heigh; i++){
 		for(unsigned int j = 0; j < this->width; j++){
-			if(this->matrix[i][i])
+			if(this->matrix[i][j])
 				temp_matrix.at(i+alpha).at(j+beta) = 1;
 		}
 	}

@@ -29,7 +29,7 @@ public:
 
 	//Apply traslation to the image.
 	void traslateImage(ui alpha, ui betha);
-		//Function to get mass center of image.
+	//Function to get mass center of image.
 	void getMC();
 
 private:
