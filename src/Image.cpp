@@ -16,8 +16,8 @@ Image::Image(ui heigh, ui width){
 //Getters
 unsigned int Image::getWidth(){ return this->width; }
 unsigned int Image::getHeigh(){ return this->heigh; }
-unsigned int Image::getXcm(){ return this->xcm; }
-unsigned int Image::getYcm(){ return this->ycm; }
+unsigned int Image::getXmc(){ return this->xmc; }
+unsigned int Image::getYmc(){ return this->ymc; }
 
 //Setter
 void Image::setPixel(ui x, ui y, int value){

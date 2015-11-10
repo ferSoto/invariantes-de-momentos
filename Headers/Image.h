@@ -22,8 +22,8 @@ public:
 	//Getters
 	ui getWidth();
 	ui getHeigh();
-	ui getXcm();
-	ui getYcm();
+	ui getXmc();
+	ui getYmc();
 	//Setter
 	void setPixel(ui x, ui y, int value);
 
@@ -36,8 +36,8 @@ private:
 	vvi matrix;
 	ui width;
 	ui heigh;
-	ui xcm;
-	ui ycm;
+	ui xmc;
+	ui ymc;
 
 	//Change the size of the image matrix
 	vvi newMatrix(ui x, ui y);
