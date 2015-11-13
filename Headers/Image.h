@@ -17,6 +17,7 @@ public:
 	operator ()(ui i, ui j);
 
 	//Constructor
+	Image();
 	Image(ui heigh, ui width);
 
 	//Getters
@@ -31,6 +32,8 @@ public:
 	void traslateImage(ui alpha, ui betha);
 	//Function to get mass center of image.
 	void getMC();
+	//Print mass center coordenates.
+	void printMC();
 
 private:
 	vvi matrix;

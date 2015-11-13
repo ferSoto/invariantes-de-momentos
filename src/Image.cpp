@@ -8,6 +8,10 @@
 #include <cstring>
 #include <iostream>
 
+Image::Image(){
+	
+}
+
 Image::Image(ui heigh, ui width){
 	this->heigh = heigh;
 	this->width = width;
@@ -93,4 +97,9 @@ void Image::traslateImage(ui alpha, ui beta){
 	this->heigh += alpha;
 	this->width += beta;
 	getMC();
+}
+
+void Image::printMC(){
+	std::cout<<"Xmc = "<<this->xmc;
+	std::cout<<"\nYmc = "<<this->ymc<<std::endl;
 }
