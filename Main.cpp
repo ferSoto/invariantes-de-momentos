@@ -8,6 +8,7 @@
 #include <iostream>
 #include "Headers/Image.h"
 #include "Headers/Moments.h"
+#include "Headers/EulersCharacteristics.h"
 
 using namespace std;
 
@@ -41,7 +42,7 @@ void printCentralMoments(Image img){
 		for (int j = 0; j < 3; ++j){
 			cout<<"p = "<<i;
 			cout<<" q = "<<j<<endl;
-			cout<<"M = "<<Moments::centralMoment(img, i, j)<<"\n\n";
+			printf("M = %0.5lf\n\n",Moments::centralMoment(img, i, j));
 		}
 	}
 }
@@ -136,7 +137,9 @@ int main(int argc, char const *argv[])
 			//Even cooler code stuffs
 		break;*/
 		default:
-			cout<<"/nError en la entrada de los datos."
+		{
+			cout<<"/nError en la entrada de los datos.";
+		}
 		break;
 	}
 	return 0;
