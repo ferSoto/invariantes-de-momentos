@@ -35,7 +35,7 @@ public:
 	//Print mass center coordenates.
 	void printMC();
 
-private:
+protected:
 	vvi matrix;
 	ui width;
 	ui heigh;
