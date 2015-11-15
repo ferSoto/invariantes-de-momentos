@@ -16,8 +16,10 @@ typedef unsigned int ui;
 double Moments::centralMoment(Image img, int p, int q){
 	double Mpq = 0;
 	for(ui xi = 0; xi < img.getHeigh(); xi++)
-		for(ui yj = 0; yj < img.getWidth(); yj++)				 
-			Mpq += (pow(xi-img.getXmc(),p)*pow(yj-img.getYmc(),q)*(img(xi,yj)) ? 1 : 0);
+		for(ui yj = 0; yj < img.getWidth(); yj++)
+		if(img(xi,yj) == 1)				 
+			Mpq += (pow((double)xi-(double)img.getXmc(),(double)p)
+				*pow((double)yj-(double)img.getYmc(),(double)q));
 	return Mpq;
 }
 
