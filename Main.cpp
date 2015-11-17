@@ -54,7 +54,8 @@ void printScalingMoments(Image img, double M00){
 	for (int i = 0; i < 3; ++i){
 		for (int j = 0; j < 3; ++j){
 			cout<<"\n\np = "<<i<<", q = "<<j<<endl;
-			cout<<"Npq = "<<Moments::getScalingMoment(img, i, j, M00);
+			printf("Npq = %0.50lf",Moments::getScalingMoment(img, i, j, M00));
+			cout<<"\nNpq rounded = "<<Moments::getScalingMoment(img, i, j, M00);
 		}
 	}
 }
@@ -78,7 +79,7 @@ int main(int argc, char const *argv[])
 	* 3.- Option 3 begins with 3, next two integers (heigh and width)
 	*     and the image matrix (for times cause we're going to work with
 	*     four images).
-	* 4.- Receives the all 7 images in the same format as before.
+	* 4.- Receives one 4 and the same as the point one.
 	* Each option will print the moments for each image or their euler's 
 	* characteristics.
 	*/
@@ -114,9 +115,12 @@ int main(int argc, char const *argv[])
 		{
 			Image imgD1, imgD2;
 			double M00;
-			//Reading images.
+			//Reading images and getting their mass center (Used to
+			//calculate their central moment).
 			imgD1 = readImage();
+			imgD1.getMC();
 			imgD2 = readImage();
+			imgD2.getMC();
 			//Getting M00 for image 1.
 			M00 = Moments::getM00(imgD1);
 			//Getting and printing Scaling moments for image 1.
@@ -138,7 +142,7 @@ int main(int argc, char const *argv[])
 		break;*/
 		default:
 		{
-			cout<<"/nError en la entrada de los datos.";
+			cout<<"/nInput error.";
 		}
 		break;
 	}

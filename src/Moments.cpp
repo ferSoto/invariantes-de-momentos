@@ -5,6 +5,7 @@
 #include "../Headers/Moments.h"
 #include "../Headers/Image.h"
 #include <cmath>
+#include <iostream>
 
 typedef unsigned int ui;
 
@@ -30,7 +31,7 @@ double Moments::getM00(Image img){
 	double M_00 = 0;
 	for(ui i = 0; i < img.getHeigh(); i++)
 		for(ui j = 0; j < img.getWidth(); j++)
-			M_00 += (img(i,j) ? 1 : 0);
+			M_00 += (double)img(i,j);
 	return M_00;
 }
 
@@ -38,7 +39,7 @@ double Moments::getM00(Image img){
 * Used as factor in getScalingMoment.
 */
 double Moments::getM00some(double M_00, int p, int q){
-	return pow(M_00,1 + (p+q)/2);
+	return pow((double)M_00,1.0 + (((double)p+(double)q)/2.0));
 }
 
 /**
@@ -47,5 +48,5 @@ double Moments::getM00some(double M_00, int p, int q){
 * Scaling Moment = Mpq/(M00^((p+q)/2 + 1))
 */
 double Moments::getScalingMoment(Image img, int p, int q, double M_00){
-	return centralMoment(img, p, q)/getM00some(M_00, p, q);
+	return (double)centralMoment(img, p, q)/(double)getM00some(M_00, p, q);
 }

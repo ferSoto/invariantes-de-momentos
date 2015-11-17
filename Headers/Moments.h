@@ -19,6 +19,8 @@ public:
 	//Function to get central moment for scaling transformation.
 	static double getScalingMoment(Image img, int p, int q, double M_00);
 
+	//
+
 private:
 	//Return M_00^((p+q)/2 + 1)
 	static double getM00some(double M_00, int p, int q);
