@@ -6,6 +6,7 @@
 #include <cstring>
 #include <ctime>
 #include <iostream>
+#include <tuple>
 #include "Headers/Image.h"
 #include "Headers/Moments.h"
 #include "Headers/EulersCharacteristics.h"
@@ -13,6 +14,7 @@
 using namespace std;
 
 typedef unsigned int ui;
+typedef tuple<double, double, double> tddd;
 
 /**
 * Read image width, heigh and its pixels.
@@ -60,6 +62,19 @@ void printScalingMoments(Image img, double M00){
 	}
 }
 
+/**
+*
+*/
+void printRotationMoments(Image img){
+	auto rotationMoments = Moments::getRotationMoments(img);
+	printf(
+		"\nRI1: %0.0lf\nRI2: %0.0lf\nRI3: %0.0lf",
+		get<0>(rotationMoments), 
+		get<1>(rotationMoments),
+		get<2>(rotationMoments)
+	);
+}
+
 int main(int argc, char const *argv[])
 {
 	/**
@@ -71,15 +86,16 @@ int main(int argc, char const *argv[])
 	////////////////////////////////////////////////////////////////////////
 	/**
 	* Each case has his own read format.
-	* 1.- Begins with 1, then two integers (heigh and widthg) and finally 
+	* 1.- Begins with 1, then two integers (heigh and width) and finally 
 	* 	  the matrix of the image.
 	* 2.- This option receives the number 2, then 2 integer (heigh, width)
 	*     and the image matrix (twice), the two images from different
 	*     distance (50cm and 1m).
 	* 3.- Option 3 begins with 3, next two integers (heigh and width)
-	*     and the image matrix (for times cause we're going to work with
-	*     four images).
-	* 4.- Receives one 4 and the same as the point one.
+	*     and the image matrix (four times cause we're going to work with
+	*     that number of images).
+	* 4.- Receives the number 4, then two integer (heigh and width) and 
+	* 	  finally the matrix image.
 	* Each option will print the moments for each image or their euler's 
 	* characteristics.
 	*/
@@ -113,6 +129,8 @@ int main(int argc, char const *argv[])
 		}
 		case 2:	
 		{
+			/**This block of code can be optimized using a for cycle 
+			insted of two Image objects.*/
 			Image imgD1, imgD2;
 			double M00;
 			//Reading images and getting their mass center (Used to
@@ -134,12 +152,51 @@ int main(int argc, char const *argv[])
 			printScalingMoments(imgD2, M00);
 			break;
 		}	
-		/*case 3:
-			//Cool code stuffs
+		case 3:
+		{
+			//Text to show with the data obtained.
+			string degrees[4]= {"0: ", "45: ", "90: ", "180: "};
+			cout<<"Rotarion moments:";
+			for (int i = 0; i < 4; ++i){
+				//Reading images and gettins thier mass center.
+				Image img;
+				img = readImage();
+				img.getMC();
+				cout<<"\n\n"<<degrees[i];
+				printRotationMoments(img);
+				cout<<"\n\n/////////////////////////////////////////////////////";
+			}
+		}
 		break;
 		case 4:
-			//Even cooler code stuffs
-		break;*/
+		{
+			ui heigh, width;
+			int temp_pixel;
+			//Reading image.
+			cin>>heigh>>width;
+			EulersCharacteristics img(heigh, width);
+			for (ui i = 0; i < heigh; ++i){
+				for (ui j = 0; j < width; ++j){
+					cin>>temp_pixel;
+					img.setPixel(i, j, temp_pixel);
+				}
+			}
+			//Setting euler characteristics
+			img.setOutlinePerimeter();
+			img.setTetrapixelsNumber();
+			img.setContactPerimeter();
+			img.setHoleNumber();
+			img.setVertexNumber();
+			//Printing euler characteristics
+			cout<<"Euler's Characteristics:\n\n";
+			cout<<"Outline perimeter: "<<img.getOutlinePerimeter();
+			cout<<"\nContact perimeter: "<<img.getContactPerimeter();
+			cout<<"\nHole number: "<<img.getHoleNumber();
+			cout<<"\nTetrapixels: "<<img.getTetrapixelsNumber();
+			cout<<"\nVertexs: "<<img.getVertexNumber();
+			cout<<"\nFaces: "<<img.getFacesNumber();
+		}
+		break;
 		default:
 		{
 			cout<<"/nInput error.";
